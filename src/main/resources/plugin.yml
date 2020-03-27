@@ -1,0 +1,6 @@
+name: StedaQuest
+version: 1.0-SNAPSHOT
+main: me.anfanik.steda.quest.Bootstrap
+depend:
+  - StedaApi
+  - ProtocolLib
