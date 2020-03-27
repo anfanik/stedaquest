@@ -1,0 +1,5 @@
+name: stedaquest
+version: $version
+author: anfanik
+main: me.anfanik.steda.quest.Bootstrap
+depend: [StedaApi, ProtocolLib]

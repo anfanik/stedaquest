@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'me.anfanik.steda'
+version '1.1'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repository.anfanik.me/public' }
+    maven { url 'https://repo.dmulloy2.net/nexus/repository/public/' }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+
+    compileOnly('org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT')
+    compileOnly('me.anfanik.steda:stedaapi:1.19.5')
+
+    compileOnly 'com.comphenix.protocol:ProtocolLib:4.5.0'
+}
+
+tasks.with {
+    withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << '-Xlint:none'
+    }
+    processResources.filter { it.replace('\$version', version as String) }
+}
+
+publishing {
+    repositories {
+        maven {
+            url 'https://repository.anfanik.me/public'
+            credentials {
+                username System.getenv('A5K_USERNAME')
+                password System.getenv('A5K_PASSWORD')
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            artifact jar
+        }
+
+    }
+}
